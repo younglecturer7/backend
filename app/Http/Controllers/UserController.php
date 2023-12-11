@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Interfaces\UserInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,10 +41,12 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
+        $validatedUser = $request->validated();
+        $storedUser = User::create($validatedUser);
         return view('create', [
-            'newUser' => $request->all()
+            'newUser' => $storedUser
         ]);
     }
 
@@ -52,7 +55,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('home', [
+            'user' => $this->userRepository->showSingleUser($user)
+        ]);
     }
 
     /**
