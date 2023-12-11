@@ -12,14 +12,14 @@ class UserRepository implements UserInterface
         return User::all();
     }
 
-    public function storeUser($details)
+    public function storeUser($validatedUser)
     {
-        //
+        return User::create($validatedUser);
     }
 
     public function showSingleUser($id)
     {
-        //
+        return User::FindorFail($id);
     }
 
     public function updateUser($id, $details)

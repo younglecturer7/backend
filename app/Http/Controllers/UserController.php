@@ -44,17 +44,17 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $validatedUser = $request->validated();
-        $storedUser = User::create($validatedUser);
         return view('create', [
-            'newUser' => $storedUser
+            'newUser' => $this->userRepository->storeUser($validatedUser)
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Request $request)
     {
+        $user = $request->route('user');
         return view('home', [
             'user' => $this->userRepository->showSingleUser($user)
         ]);
