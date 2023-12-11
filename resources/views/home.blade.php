@@ -5,11 +5,17 @@
 </head>
 <body>
     <h3>List of Users</h3>
+    <ol>
     @forelse ($users as $user)
-        <p>{{ $user->name }}</p>
+        <li>
+            <strong>Name: </strong> {{ $user->name }}
+            &nbsp; &nbsp; &nbsp;
+            <strong>Email: </strong> {{ $user->email }}
+        </li>
     @empty
-        <em>no user in the database..</em>
+        <li><em>no user in the database..</em></li>
     @endforelse
+    </ol>
 </body>
 </html>
 
