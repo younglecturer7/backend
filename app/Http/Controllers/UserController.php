@@ -12,7 +12,7 @@ class UserController extends Controller
     private $userRepository;
 
     /**
-     * Construct default variables...
+     * Construct default variables.
      */
     function __construct(UserInterface $user)
     {
@@ -25,7 +25,7 @@ class UserController extends Controller
     public function index()
     {
         return view('home', [
-            'users' => $this->userRepository->index()
+            'users' => $this->userRepository->showAllUsers()
         ]);
     }
 

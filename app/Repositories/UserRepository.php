@@ -7,7 +7,7 @@ use App\Models\User;
 
 class UserRepository implements UserInterface
 {
-    public function index()
+    public function showAllUsers()
     {
         return User::all();
     }
