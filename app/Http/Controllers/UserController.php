@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Interfaces\UserInterface;
 use App\Models\User;
+use App\Traits\HttpResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    use HttpResponse;
+
     //declare variables
     private $userRepository;
 
@@ -25,8 +28,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('home', [
+        /* return view('home', [
             'users' => $this->userRepository->showAllUsers()
+        ]); */
+
+        return response()->json([
+            'data' => $this->userRepository->showAllUsers()
         ]);
     }
 
@@ -44,9 +51,13 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $validatedUser = $request->validated();
-        return view('create', [
-            'newUser' => $this->userRepository->storeUser($validatedUser)
+        return response()->json([
+            'data' => $this->userRepository->storeUser($validatedUser)
         ]);
+
+        /* return view('create', [
+            'newUser' => $this->userRepository->storeUser($validatedUser)
+        ]); */
     }
 
     /**
@@ -55,9 +66,13 @@ class UserController extends Controller
     public function show(Request $request)
     {
         $user = $request->route('user');
-        return view('home', [
-            'user' => $this->userRepository->showSingleUser($user)
+        return response()->json([
+            'data' => $this->userRepository->showSingleUser($user)
         ]);
+
+        /* return view('home', [
+            'user' => $this->userRepository->showSingleUser($user)
+        ]); */
     }
 
     /**
@@ -71,9 +86,14 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(StoreUserRequest $request)
     {
-        //
+        $details = $request->validated();
+        $id = $request->route('user');
+        $this->userRepository->updateUser($id, $details);
+        return response()->json([
+            'data' => $this->success(['id' => $id ], 'Users detail updated successfully')
+        ]);
     }
 
     /**
