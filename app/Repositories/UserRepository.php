@@ -29,7 +29,7 @@ class UserRepository implements UserInterface
 
     public function deleteSingleUser($id)
     {
-        //
+        return User::destroy($id);
     }
 
     public function deleteMultipleUsers($ids)
