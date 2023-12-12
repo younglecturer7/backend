@@ -91,9 +91,7 @@ class UserController extends Controller
         $details = $request->validated();
         $id = $request->route('user');
         $this->userRepository->updateUser($id, $details);
-        return response()->json([
-            'data' => $this->success(['id' => $id ], 'Users detail updated successfully')
-        ]);
+        return $this->success(['id' => $id ], 'Users detail updated successfully');
     }
 
     /**
@@ -101,6 +99,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $this->userRepository->deleteSingleUser($user->id);
+        return $this->success([ 'id' => $user->id ], 'Users deleted successfully');
     }
 }
