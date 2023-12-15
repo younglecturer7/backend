@@ -18,6 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+
+//fortify password reset route
+Route::get('/reset-password/{token}', function($token){
+    return $token;
+})->middleware(['guest:'.config('fortify.guard')])->name('password.reset');
+
+
+
+
 /* Route::post('/home', function () {
     return view('home');
 }); */
