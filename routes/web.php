@@ -18,9 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-
 //fortify password reset route
 Route::get('/reset-password/{token}', function($token){
     return $token;

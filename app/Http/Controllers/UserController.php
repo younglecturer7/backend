@@ -28,10 +28,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        /* return view('home', [
-            'users' => $this->userRepository->showAllUsers()
-        ]); */
-
         return response()->json([
             'data' => $this->userRepository->showAllUsers()
         ]);
