@@ -7,6 +7,7 @@ use App\Interfaces\UserInterface;
 use App\Models\User;
 use App\Traits\HttpResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -87,7 +88,7 @@ class UserController extends Controller
         $details = $request->validated();
         $id = $request->route('user');
         $this->userRepository->updateUser($id, $details);
-        return $this->success(['id' => $id ], 'Users detail updated successfully');
+        return $this->success(['id' => $id], 'Users detail updated successfully');
     }
 
     /**
@@ -96,6 +97,21 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->userRepository->deleteSingleUser($user->id);
-        return $this->success([ 'id' => $user->id ], 'Users deleted successfully');
+        return $this->success(['id' => $user->id], 'Users deleted successfully');
+    }
+
+    public function verifyAuth()
+    {
+        //check if user is authenticated
+        if (Auth::check()) {
+            return response()->json([
+                "id" => Auth::id()
+            ]);
+        }
+
+        //user not authenticated
+        return response()->json([
+            "id" => Auth::id()
+        ]);
     }
 }

@@ -15,12 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//public routes
+Route::prefix('v1')->group(function () {
+    Route::get('/users', [userController::class, 'index']);
+    Route::get('/user/{user}', [userController::class, 'show']);
+    // Route::get('/verify-auth', [userController::class, 'verifyAuth']);
 });
 
-//public routes
-Route::prefix('v1')->group(function(){
-    //Route::post('/user/store', [userController::class, 'store']);
-    Route::apiResource('user', UserController::class);
+//private routes
+Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
+    // Route::apiResource('user', UserController::class);
+    Route::get('/verify-auth', [userController::class, 'verifyAuth']);
 });
