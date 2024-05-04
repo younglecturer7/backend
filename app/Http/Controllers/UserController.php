@@ -52,9 +52,6 @@ class UserController extends Controller
             'data' => $this->userRepository->storeUser($validatedUser)
         ]);
 
-        /* return view('create', [
-            'newUser' => $this->userRepository->storeUser($validatedUser)
-        ]); */
     }
 
     /**
@@ -66,18 +63,14 @@ class UserController extends Controller
         return response()->json([
             'data' => $this->userRepository->showSingleUser($user)
         ]);
-
-        /* return view('home', [
-            'user' => $this->userRepository->showSingleUser($user)
-        ]); */
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show auth user
      */
-    public function edit(User $user)
+    public function showAuthUser()
     {
-        //
+        return response()->json([ 'data' => $this->userRepository->showAuthUser() ]);
     }
 
     /**
@@ -100,18 +93,4 @@ class UserController extends Controller
         return $this->success(['id' => $user->id], 'Users deleted successfully');
     }
 
-    public function verifyAuth()
-    {
-        //check if user is authenticated
-        if (Auth::check()) {
-            return response()->json([
-                "id" => Auth::id()
-            ]);
-        }
-
-        //user not authenticated
-        return response()->json([
-            "id" => Auth::id()
-        ]);
-    }
 }

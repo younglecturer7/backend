@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,13 +18,15 @@ use Illuminate\Support\Facades\Route;
 
 //public routes
 Route::prefix('v1')->group(function () {
-    Route::get('/users', [userController::class, 'index']);
-    Route::get('/user/{user}', [userController::class, 'show']);
-    // Route::get('/verify-auth', [userController::class, 'verifyAuth']);
+    //authentication route
+    Route::get('/verify-auth', [AuthController::class, 'verifyAuth']);
+    Route::get('/verify-phone', [AuthController::class, 'verifyPhone']);
+    Route::get('/verify-email', [AuthController::class, 'verifyEmail']);
+    Route::get('/verify-username', [AuthController::class, 'verifyUsername']);
 });
 
 //private routes
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
-    // Route::apiResource('user', UserController::class);
-    Route::get('/verify-auth', [userController::class, 'verifyAuth']);
+    Route::get('/auth-user', [UserController::class, 'showAuthUser']);
+    Route::apiResource('user', UserController::class);
 });

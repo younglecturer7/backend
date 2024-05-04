@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserRepository implements UserInterface
 {
@@ -20,6 +21,11 @@ class UserRepository implements UserInterface
     public function showSingleUser($id)
     {
         return User::FindorFail($id);
+    }
+
+    public function showAuthUser()
+    {
+        return Auth::user();
     }
 
     public function updateUser($id, $details)
