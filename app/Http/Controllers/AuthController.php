@@ -16,7 +16,11 @@ class AuthController extends Controller
         //check if user is authenticated
         if (Auth::check()) {
             return response()->json([
-                "id" => Auth::id()
+                "data" => Auth::check(),
+            ]);
+        }else{
+            return response()->json([
+                "data" => Auth::check(),
             ]);
         }
     }

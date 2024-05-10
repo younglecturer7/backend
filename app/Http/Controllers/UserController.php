@@ -7,7 +7,6 @@ use App\Interfaces\UserInterface;
 use App\Models\User;
 use App\Traits\HttpResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
